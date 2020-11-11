@@ -21,12 +21,12 @@ const inputLastName = prompt('Please enter your last name');
 let dateSearch = '';
 
 for ( i=0; i < data.length; i++) {
-    if (`${inputLastName}` === data[i].lastName) {
+    if (`${inputLastName}`.toLowerCase() === data[i].lastName.toLowerCase()) {
         dateSearch = data[i];
     }    
 }
 
-if (`${dateSearch.lastName}` === `${inputLastName}`) {
+if (`${dateSearch.lastName}`.toLowerCase() === `${inputLastName}`.toLowerCase()) {
     
     alert(` user name: ${dateSearch.firstName} ${dateSearch.lastName}. \n user age: ${dateSearch.age}. `);
 }
