@@ -1,13 +1,8 @@
-let salaries = { John: 100, Ann: 160, Pete: 130 };
-let numberArr = [];
+const salaries = { John: 100, Ann: 160, Pete: 130 };
+let numberSum = 0;
 
 for (var key in salaries) {
-  numberArr.push(salaries[key]);
+  numberSum += salaries[key];
 }
 
-let sum = null;
-for (let i = 0; i < numberArr.length; i++) {
-  sum += numberArr[i];
-}
-
-console.log(sum);
+console.log(numberSum);

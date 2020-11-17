@@ -7,11 +7,11 @@ const entrance = Number(prompt(`Укажите число подъездов:`))
 const apart = Number(
   prompt(`Укажите количество квартир на лестничной площадке:`)
 );
-let room = Number(prompt(`Укажите номер квартиры:`));
+const room = Number(prompt(`Укажите номер квартиры:`));
 
-let apartInTheEntrance = floor * apart;
-let apartInTheHouse = floor * entrance * apart;
-let floorInTheHouse = floor * entrance;
+const apartInTheEntrance = floor * apart;
+const apartInTheHouse = floor * entrance * apart;
+const floorInTheHouse = floor * entrance;
 
 // Вычисление подъезда
 for (let i = 0; i <= apartInTheHouse; i += apartInTheEntrance) {
