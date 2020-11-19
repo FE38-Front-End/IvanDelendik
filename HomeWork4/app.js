@@ -1,6 +1,8 @@
 function sequence(start = 0, step = 1) {
+  let startApp = start - step;
+
   return function () {
-    return (start += step);
+    return (startApp += step);
   };
 }
 
