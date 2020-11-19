@@ -3,9 +3,11 @@ function sum(a) {
     a += b;
     return term;
   }
+
   term.toString = function () {
     return a;
   };
+
   return term;
 }
 
