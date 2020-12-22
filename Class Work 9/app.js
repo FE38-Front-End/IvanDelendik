@@ -5,16 +5,21 @@ const buttonLeft = document.getElementById("button-left");
 const buttonRight = document.getElementById("button-right");
 const buttonDown = document.getElementById("button-down");
 
-while (true) {
-  squareLenght = +prompt("Введите длину стороны квадрата в px");
-  circleLenght = +prompt("Введите диаметр круга в px");
-  if (squareLenght >= circleLenght) {
-    break;
-  }
-  alert("Ошибка, невозожно вписать круг по заданным параметрам");
-}
+butt.onclick = function () {
+  var val = document.getElementById("elem1").value;
+  document.getElementById("str").innerHTML = "Вы ввели: " + val;
+};
 
-square.style.width = squareLenght + "px";
+// while (true) {
+//   squareLenght = +prompt("Введите длину стороны квадрата в px");
+//   circleLenght = +prompt("Введите диаметр круга в px");
+//   if (squareLenght >= circleLenght) {
+//     break;
+//   }
+//   alert("Ошибка, невозожно вписать круг по заданным параметрам");
+// }
+
+squareLenght = square.style.width = squareLenght + "px";
 square.style.height = squareLenght + "px";
 
 circle.style.width = circleLenght + "px";
@@ -26,7 +31,7 @@ circle.style.marginTop = topIndent + "px";
 let leftIndent = squareLenght / 2 - circleLenght / 2;
 circle.style.marginLeft = leftIndent + "px";
 
-const step = +prompt("Введите шаг в px");
+// const step = +prompt("Введите шаг в px");
 
 if (topIndent < step) {
   buttonUp.disabled = true;
