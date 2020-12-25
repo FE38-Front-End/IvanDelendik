@@ -15,15 +15,13 @@
   5) Предусмотреть валидацию для ввода данных, например нельзя создать окружность большего диаметра чем сторона квадрата. По умолчанию окружность распологать в центре квадрата.
   </pre>
 
-  <input id="elem1" type="text" name="quantity" placeholder="Количество">
-<input id="butt" type="button" value="Кнопка"/><br><br>
-<div id="str"></div>
   <h1>Решение</h1>
 
   <div class="parametr">
     <input
       type="text"
       class="input-param"
+      id="input-save-square"
       placeholder="Введите длину стороны квадрата в px"
     />
     <input
@@ -38,6 +36,7 @@
     <input
       type="text"
       class="input-param"
+      id="input-save-circle"
       placeholder="Введите диаметр круга в px"
     />
     <input
@@ -49,7 +48,12 @@
   </div>
 
   <div class="parametr">
-    <input type="text" class="input-param" placeholder="Введите шаг в px" />
+    <input
+      type="text"
+      class="input-param"
+      id="input-save-step"
+      placeholder="Введите шаг в px"
+    />
     <input
       type="button"
       id="button-save-step"

@@ -4,41 +4,50 @@ const buttonUp = document.getElementById("button-up");
 const buttonLeft = document.getElementById("button-left");
 const buttonRight = document.getElementById("button-right");
 const buttonDown = document.getElementById("button-down");
+const buttonSaveSquare = document.getElementById("button-save-square");
+const inputSaveSquare = document.getElementById("input-save-square");
+const buttonSaveCircle = document.getElementById("button-save-circle");
+const inputSaveCircle = document.getElementById("input-save-circle");
+const buttonSaveStep = document.getElementById("button-save-step");
+const inputSaveStep = document.getElementById("input-save-step");
 
-butt.onclick = function () {
-  var val = document.getElementById("elem1").value;
-  document.getElementById("str").innerHTML = "Вы ввели: " + val;
-};
+buttonSaveSquare.addEventListener("click", () => {
+  if (+inputSaveCircle.value >= +inputSaveSquare.value) {
+    alert(
+      "Ошибка, невозожно вписать круг по заданным параметрам. Измените диаметр окружности или длину квадрата"
+    );
+  } else {
+    square.style.width = inputSaveSquare.value + "px";
+    square.style.height = inputSaveSquare.value + "px";
+    square.style.display = "block";
+  }
+});
 
-// while (true) {
-//   squareLenght = +prompt("Введите длину стороны квадрата в px");
-//   circleLenght = +prompt("Введите диаметр круга в px");
-//   if (squareLenght >= circleLenght) {
-//     break;
-//   }
-//   alert("Ошибка, невозожно вписать круг по заданным параметрам");
-// }
+buttonSaveCircle.addEventListener("click", () => {
+  if (+inputSaveCircle.value >= +inputSaveSquare.value) {
+    alert(
+      "Ошибка, невозожно вписать круг по заданным параметрам. Измените диаметр окружности или длину квадрата"
+    );
+  } else {
+    circle.style.width = inputSaveCircle.value + "px";
+    circle.style.height = inputSaveCircle.value + "px";
+    topIndent = +(inputSaveSquare.value / 2 - inputSaveCircle.value / 2);
+    circle.style.marginTop = topIndent + "px";
+    leftIndent = +(inputSaveSquare.value / 2 - inputSaveCircle.value / 2);
+    circle.style.marginLeft = leftIndent + "px";
+    circle.style.display = "block";
+  }
+});
 
-squareLenght = square.style.width = squareLenght + "px";
-square.style.height = squareLenght + "px";
-
-circle.style.width = circleLenght + "px";
-circle.style.height = circleLenght + "px";
-
-let topIndent = squareLenght / 2 - circleLenght / 2;
-circle.style.marginTop = topIndent + "px";
-
-let leftIndent = squareLenght / 2 - circleLenght / 2;
-circle.style.marginLeft = leftIndent + "px";
-
-// const step = +prompt("Введите шаг в px");
-
-if (topIndent < step) {
-  buttonUp.disabled = true;
-  buttonLeft.disabled = true;
-  buttonRight.disabled = true;
-  buttonDown.disabled = true;
-}
+buttonSaveStep.addEventListener("click", () => {
+  step = +inputSaveStep.value;
+  if (topIndent < step) {
+    buttonUp.disabled = true;
+    buttonLeft.disabled = true;
+    buttonRight.disabled = true;
+    buttonDown.disabled = true;
+  }
+});
 
 buttonUp.addEventListener("click", () => {
   if (topIndent - step >= 0) {
@@ -55,7 +64,7 @@ buttonUp.addEventListener("click", () => {
 });
 
 buttonDown.addEventListener("click", () => {
-  if (topIndent < squareLenght - circleLenght) {
+  if (topIndent < inputSaveSquare.value - inputSaveCircle.value) {
     circle.style.marginTop = topIndent + step + "px";
     topIndent = topIndent + step;
     buttonUp.disabled = false;
@@ -63,7 +72,7 @@ buttonDown.addEventListener("click", () => {
 });
 
 buttonDown.addEventListener("click", () => {
-  if (topIndent + step > squareLenght - circleLenght) {
+  if (topIndent + step > inputSaveSquare.value - inputSaveCircle.value) {
     buttonDown.disabled = true;
   }
 });
@@ -83,7 +92,7 @@ buttonLeft.addEventListener("click", () => {
 });
 
 buttonRight.addEventListener("click", () => {
-  if (leftIndent < squareLenght - circleLenght) {
+  if (leftIndent < inputSaveSquare.value - inputSaveCircle.value) {
     circle.style.marginLeft = leftIndent + step + "px";
     leftIndent = leftIndent + step;
     buttonLeft.disabled = false;
@@ -91,7 +100,7 @@ buttonRight.addEventListener("click", () => {
 });
 
 buttonRight.addEventListener("click", () => {
-  if (leftIndent + step > squareLenght - circleLenght) {
+  if (leftIndent + step > inputSaveSquare.value - inputSaveCircle.value) {
     buttonRight.disabled = true;
   }
 });
