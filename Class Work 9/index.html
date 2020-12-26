@@ -14,10 +14,8 @@
   4) Шаг движения окружности должен быть выбран пользователем.
   5) Предусмотреть валидацию для ввода данных, например нельзя создать окружность большего диаметра чем сторона квадрата. По умолчанию окружность распологать в центре квадрата.
   </pre>
-
   <h1>Решение</h1>
-
-  <div class="parametr">
+  <div class="parametrs">
     <input
       type="text"
       class="input-param"
@@ -28,11 +26,10 @@
       type="button"
       id="button-save-square"
       class="button-style"
+      data-type="button-save-square"
       value="Сохранить"
     />
-  </div>
 
-  <div class="parametr">
     <input
       type="text"
       class="input-param"
@@ -43,11 +40,10 @@
       type="button"
       id="button-save-circle"
       class="button-style"
+      data-type="button-save-circle"
       value="Сохранить"
     />
-  </div>
 
-  <div class="parametr">
     <input
       type="text"
       class="input-param"
@@ -58,17 +54,26 @@
       type="button"
       id="button-save-step"
       class="button-style"
+      data-type="button-save-step"
       value="Сохранить"
     />
   </div>
 
-  <div class="button">
-    <button class="button-style" id="button-up">Вверх</button>
+  <div class="buttons">
+    <button class="button-style" id="button-up" data-type="button-up">
+      Вверх
+    </button>
     <div>
-      <button class="button-style" id="button-left">Влево</button>
-      <button class="button-style" id="button-right">Вправо</button>
+      <button class="button-style" id="button-left" data-type="button-left">
+        Влево
+      </button>
+      <button class="button-style" id="button-right" data-type="button-right">
+        Вправо
+      </button>
     </div>
-    <button class="button-style" id="button-down">Вниз</button>
+    <button class="button-style" id="button-down" data-type="button-down">
+      Вниз
+    </button>
   </div>
   <div id="square">
     <div id="circle"></div>
