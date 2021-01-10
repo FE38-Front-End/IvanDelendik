@@ -90,14 +90,14 @@ calcParam.addEventListener("click", (e) => {
         }
         break;
       case "radical":
-        let begValue = "";
-        let finValue = "";
-        begValue = calcInp.value.split("");
+        let ferstValue = "";
+        let secondValue = "";
+        ferstValue = calcInp.value.split("");
         calcInp.value = "";
-        finValue = Math.sqrt(begValue[begValue.length - 1]);
-        begValue.splice(begValue.length - 1, 1, `${finValue}`);
-        begValue = begValue.join("");
-        calcInp.value = begValue;
+        secondValue = Math.sqrt(ferstValue[ferstValue.length - 1]);
+        ferstValue.splice(ferstValue.length - 1, 1, `${secondValue}`);
+        ferstValue = ferstValue.join("");
+        calcInp.value = ferstValue;
 
         // if (Number.isInteger(+calcInp.value.slice(-1))) {
         //   if (!splitsSearchManip) {
