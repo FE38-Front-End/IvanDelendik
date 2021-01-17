@@ -4,9 +4,8 @@
 const calcParam = document.querySelector(".calc-param");
 let calcInp = document.getElementById("calc-inp");
 
-// let firstNum;
-// let secondNum;
 calcInp.value = 0;
+let lastValue;
 
 function insert(value) {
   calcInp.value += value;
@@ -16,130 +15,140 @@ function result() {
   calcInp.value = eval(calcInp.value);
 }
 
-// let aa = calcParam.children[8].textContent;
-// console.log(Number.isInteger(+aa));
-
 calcParam.addEventListener("click", (e) => {
   const buttonType = e.target.dataset.type;
   const buttonTypeNumber = e.target.textContent;
+
+  if (Number.isInteger(+buttonTypeNumber)) {
+    if (+calcInp.value === 0 && calcInp.value.length === 1) {
+      calcInp.value = "";
+    }
+    insert(+buttonTypeNumber);
+  }
 
   if (buttonType) {
     const splits = calcInp.value.split("");
     const manipulation = (elem) =>
       elem === "+" || elem === "-" || elem === "*" || elem === "/";
-    let splitsSearchManip = splits.some(manipulation);
+    const splitsSearchManip = splits.some(manipulation);
+    const splitsSearchIndexManip = splits.findIndex(manipulation);
+    const splitsSearchValueManip = splits.find(manipulation);
+    const lastValueIsNumber = Number.isInteger(+calcInp.value.slice(-1));
+    const splitsSearchPoint = splits.some((elem) => elem === ".");
+    const value = calcInp.value.slice(0, -1);
+    const symbol = calcInp.value.slice(-1);
+    const firstValueAndManip = splits
+      .slice(0, splitsSearchIndexManip + 1)
+      .join("");
+    const secondValue = splits
+      .slice(splitsSearchIndexManip + 1, splits.length)
+      .join("");
+
+    console.log(calcInp.value.slice(-1));
 
     switch (buttonType) {
       case "plus":
-        if (Number.isInteger(+calcInp.value.slice(-1))) {
+        if (lastValueIsNumber) {
           result();
           insert(`+`);
         } else {
-          value = calcInp.value.slice(0, -1);
           calcInp.value = `${value}+`;
         }
         break;
       case "minus":
-        if (Number.isInteger(+calcInp.value.slice(-1))) {
+        if (lastValueIsNumber) {
           result();
           insert(`-`);
         } else {
-          value = calcInp.value.slice(0, -1);
           calcInp.value = `${value}-`;
         }
         break;
       case "virgule":
-        if (
-          Number.isInteger(+calcInp.value.slice(-1)) &&
-          !splits.some((elem) => elem === ".")
-        ) {
+        if (lastValueIsNumber && !splitsSearchPoint) {
           insert(`.`);
         } else {
-          splitsSearchPoint = splits.some((elem) => elem === ".");
           if (!splitsSearchPoint) {
             insert(`0.`);
           }
         }
         break;
       case "plusMinus":
-        if (Number.isInteger(+calcInp.value.slice(-1))) {
-          calcInp.value = eval(calcInp.value * -1);
+        if (lastValueIsNumber || lastValue === ".") {
+          if (splitsSearchIndexManip > 0) {
+            calcInp.value = `${firstValueAndManip}` + eval(secondValue * -1);
+          } else {
+            calcInp.value = eval(calcInp.value * -1);
+            console.log(`secondValue`);
+          }
         } else {
-          symbol = calcInp.value.slice(-1);
-          value = calcInp.value.slice(0, -1);
-          valueRevers = eval(calcInp.value.slice(0, -1) * -1);
-          calcInp.value = `${value} ${symbol} ${valueRevers}`;
+          console.log("ТЕСТ");
+          valueRevers = eval(value * -1);
+          calcInp.value = `${firstValueAndManip} ${valueRevers}`;
         }
+
+        // if (lastValueIsNumber || lastValue === ".") {
+        //   if (splitsSearchIndexManip >= 0) {
+        //     if (splitsSearchIndexManip === 0) {
+        //       alert("Введены неверные данные");
+        //     } else {
+        //       calcInp.value =
+        //         `${firstValueAndManip}` + Math.sqrt(eval(secondValue));
+        //     }
+        //   } else {
+        //     calcInp.value = Math.sqrt(eval(calcInp.value));
+        //   }
+        // } else {
+        //   calcInp.value = `${value} ${symbol}` + Math.sqrt(value);
+        // }
+
         break;
       case "multiply":
-        if (Number.isInteger(+calcInp.value.slice(-1))) {
+        if (lastValueIsNumber) {
           result();
           insert(`*`);
         } else {
-          value = calcInp.value.slice(0, -1);
           calcInp.value = `${value}*`;
         }
         break;
       case "divide":
-        if (Number.isInteger(+calcInp.value.slice(-1))) {
+        if (lastValueIsNumber) {
           result();
           insert(`/`);
         } else {
-          value = calcInp.value.slice(0, -1);
           calcInp.value = `${value}/`;
         }
         break;
       case "radical":
-        let ferstValue = "";
-        let secondValue = "";
-        ferstValue = calcInp.value.split("");
-        calcInp.value = "";
-        secondValue = Math.sqrt(ferstValue[ferstValue.length - 1]);
-        ferstValue.splice(ferstValue.length - 1, 1, `${secondValue}`);
-        ferstValue = ferstValue.join("");
-        calcInp.value = ferstValue;
-
-        // if (Number.isInteger(+calcInp.value.slice(-1))) {
-        //   if (!splitsSearchManip) {
-        //     calcInp.value = Math.sqrt(eval(calcInp.value));
-        //   } else {
-        //     console.log(123);
-        //   }
-        // } else {
-        //   symbol = calcInp.value.slice(-1);
-        //   value = calcInp.value.slice(0, -1);
-        //   valueRadical = Math.sqrt(calcInp.value.slice(0, -1));
-        //   calcInp.value = `${value} ${symbol} ${valueRadical}`;
-        // }
-
-        // for (i = 1; i < calcInp.value.length; i++) {
-        //   if (!Number.isInteger(+calcInp.value[i])) {
-        //     value = calcInp.value[i + 1];
-        //     console.log(calcInp.value[i + 1]);
-        //     console.log(calcInp.value[i + 2]);
-        //   }
-        // }
-
+        if (lastValueIsNumber || lastValue === ".") {
+          if (splitsSearchIndexManip >= 0) {
+            if (splitsSearchIndexManip === 0) {
+              alert("Введены неверные данные");
+            } else {
+              calcInp.value =
+                `${firstValueAndManip}` + Math.sqrt(eval(secondValue));
+            }
+          } else {
+            calcInp.value = Math.sqrt(eval(calcInp.value));
+          }
+        } else {
+          calcInp.value = `${firstValueAndManip}` + Math.sqrt(value);
+        }
         break;
       case "power":
-        if (Number.isInteger(+calcInp.value.slice(-1))) {
+        if (lastValueIsNumber) {
           calcInp.value = Math.pow(calcInp.value, 2);
         } else {
-          symbol = calcInp.value.slice(-1);
-          value = calcInp.value.slice(0, -1);
-          valuePower = Math.pow(calcInp.value.slice(0, -1), 2);
+          valuePower = Math.pow(value, 2);
 
           calcInp.value = `${value} ${symbol} ${valuePower}`;
         }
         break;
       case "fraction":
         if (+calcInp.value !== 0) {
-          if (Number.isInteger(+calcInp.value.slice(-1))) {
+          if (lastValueIsNumber) {
             calcInp.value = 1 / calcInp.value;
           } else {
-            symbol = calcInp.value.slice(-1);
-            value = calcInp.value.slice(0, -1);
-            valueFraction = 1 / calcInp.value.slice(0, -1);
+            valueFraction = 1 / value;
             calcInp.value = `${value} ${symbol} ${valueFraction}`;
           }
         } else {
@@ -150,7 +159,7 @@ calcParam.addEventListener("click", (e) => {
         break;
 
       case "Del":
-        calcInp.value = calcInp.value.slice(0, -1);
+        calcInp.value = value;
         break;
       case "C":
         calcInp.value = 0;
@@ -170,26 +179,19 @@ calcParam.addEventListener("click", (e) => {
         break;
 
       case "equalle":
-        if (Number.isInteger(+calcInp.value.slice(-1))) {
+        if (lastValueIsNumber) {
           result();
         } else {
-          symbol = calcInp.value.slice(-1);
-          value = calcInp.value.slice(0, -1);
           calcInp.value = `${value} ${symbol} ${value}`;
           result();
         }
         break;
     }
 
-    if (Number.isInteger(+buttonTypeNumber)) {
-      if (+calcInp.value === 0 && calcInp.value.length === 1) {
-        calcInp.value = "";
-      }
-      insert(+buttonTypeNumber);
-    }
-
     if (calcInp.value.length === 0) {
       calcInp.value = 0;
     }
+
+    lastValue = calcInp.value.slice(-1);
   }
 });
