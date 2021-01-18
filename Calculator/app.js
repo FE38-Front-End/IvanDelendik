@@ -1,4 +1,5 @@
 // ПРИ ВВЕДЕНИЕ НЕСКОЛЬКИХ ОПЕРАЦИЙ, НЕ ОТРАБАТЫВАЕТ СЛОЖНЫЕ ВЫЧИЛСЕНИЯ
+//Сделать одинаковы отступы между 20--20
 
 // const calc = document.querySelector(".calc");
 const calcParam = document.querySelector(".calc-param");
@@ -31,20 +32,18 @@ calcParam.addEventListener("click", (e) => {
     const manipulation = (elem) =>
       elem === "+" || elem === "-" || elem === "*" || elem === "/";
     const splitsSearchManip = splits.some(manipulation);
-    const splitsSearchIndexManip = splits.findIndex(manipulation);
+    const splitsSearchIndexManip = splits.slice(1).findIndex(manipulation);
     const splitsSearchValueManip = splits.find(manipulation);
     const lastValueIsNumber = Number.isInteger(+calcInp.value.slice(-1));
     const splitsSearchPoint = splits.some((elem) => elem === ".");
     const value = calcInp.value.slice(0, -1);
     const symbol = calcInp.value.slice(-1);
     const firstValueAndManip = splits
-      .slice(0, splitsSearchIndexManip + 1)
+      .slice(0, splitsSearchIndexManip + 2)
       .join("");
     const secondValue = splits
-      .slice(splitsSearchIndexManip + 1, splits.length)
+      .slice(splitsSearchIndexManip + 2, splits.length)
       .join("");
-
-    console.log(calcInp.value.slice(-1));
 
     switch (buttonType) {
       case "plus":
@@ -74,32 +73,15 @@ calcParam.addEventListener("click", (e) => {
         break;
       case "plusMinus":
         if (lastValueIsNumber || lastValue === ".") {
-          if (splitsSearchIndexManip > 0) {
-            calcInp.value = `${firstValueAndManip}` + eval(secondValue * -1);
+          if (splitsSearchIndexManip >= 0) {
+            calcInp.value = `${firstValueAndManip} ` + eval(secondValue * -1);
           } else {
             calcInp.value = eval(calcInp.value * -1);
-            console.log(`secondValue`);
           }
         } else {
-          console.log("ТЕСТ");
           valueRevers = eval(value * -1);
-          calcInp.value = `${firstValueAndManip} ${valueRevers}`;
+          calcInp.value = `${value} ${symbol} ${valueRevers}`;
         }
-
-        // if (lastValueIsNumber || lastValue === ".") {
-        //   if (splitsSearchIndexManip >= 0) {
-        //     if (splitsSearchIndexManip === 0) {
-        //       alert("Введены неверные данные");
-        //     } else {
-        //       calcInp.value =
-        //         `${firstValueAndManip}` + Math.sqrt(eval(secondValue));
-        //     }
-        //   } else {
-        //     calcInp.value = Math.sqrt(eval(calcInp.value));
-        //   }
-        // } else {
-        //   calcInp.value = `${value} ${symbol}` + Math.sqrt(value);
-        // }
 
         break;
       case "multiply":
@@ -121,17 +103,21 @@ calcParam.addEventListener("click", (e) => {
       case "radical":
         if (lastValueIsNumber || lastValue === ".") {
           if (splitsSearchIndexManip >= 0) {
-            if (splitsSearchIndexManip === 0) {
+            calcInp.value =
+              `${firstValueAndManip}` + Math.sqrt(eval(secondValue));
+          } else {
+            if (calcInp.value < 0) {
               alert("Введены неверные данные");
             } else {
-              calcInp.value =
-                `${firstValueAndManip}` + Math.sqrt(eval(secondValue));
+              calcInp.value = Math.sqrt(eval(calcInp.value));
             }
-          } else {
-            calcInp.value = Math.sqrt(eval(calcInp.value));
           }
         } else {
-          calcInp.value = `${firstValueAndManip}` + Math.sqrt(value);
+          if (Math.sqrt(value) >= 0) {
+            calcInp.value = `${firstValueAndManip}` + Math.sqrt(value);
+          } else {
+            alert("Введены неверные данные");
+          }
         }
         break;
       case "power":
