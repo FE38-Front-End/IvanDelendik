@@ -5,13 +5,29 @@
 const calcParam = document.querySelector(".calc-param");
 let calcInp = document.getElementById("calc-inp");
 
-calcInp.value = 0;
-let firstNumber;
-let secondNumber;
+let firstNumber = 0;
+calcInp.value = firstNumber;
+let secondNumber = 0;
+let degree;
+let manip;
+let searchPointInfirstNumber = +Array.from(`${firstNumber}`).some(
+  (elem) => elem === "."
+);
+
+let searchPointInSecondNumber = +Array.from(`${secondNumber}`).some(
+  (elem) => elem === "."
+);
 
 function insert(value) {
   calcInp.value += value;
 }
+
+let operations = {
+  "+": (a, b, c) => (a * 10 ** c + b * 10 ** c) / 10 ** c,
+  "-": (a, b, c) => (a * 10 ** c - b * 10 ** c) / 10 ** c,
+  "/": (a, b, c) => (a * 10 ** c) / (b * 10 ** c),
+  "*": (a, b, c) => (a * 10 ** c * (b * 10 ** c)) / (10 ** c) ** 2,
+};
 
 // function result() {
 //   calcInp.value = eval(calcInp.value);
@@ -30,27 +46,33 @@ calcParam.addEventListener("click", (e) => {
 
   if (buttonType) {
     const splitsBeforeManip = calcInp.value.split("");
-    const manipulation = (elem) =>
-      elem === "+" || elem === "-" || elem === "*" || elem === "/";
-    const splitsSearchIndexManip = splitsBeforeManip
-      .slice(1)
-      .findIndex(manipulation);
-    const lastValueIsNumber = Number.isInteger(+calcInp.value.slice(-1));
     const splitsSearchPoint = splitsBeforeManip.some((elem) => elem === ".");
 
-    const symbol = calcInp.value.slice(-1);
-    const firstValueAndManip = splitsBeforeManip
-      .slice(0, splitsSearchIndexManip + 2)
-      .join("");
-    const secondValue = splitsBeforeManip
-      .slice(splitsSearchIndexManip + 2, splitsBeforeManip.length)
-      .join("");
+    // const splitsSearchIndexBeforeManip = splitsBeforeManip
+    //   .slice(1)
+    //   .findIndex(manipulation);
+
+    let lastValueIsNumber = Number.isInteger(+calcInp.value.slice(-1));
+
+    // const symbol = calcInp.value.slice(-1);
+
+    // const firstValueAndManip = splitsBeforeManip
+    //   .slice(0, splitsSearchIndexBeforeManip + 2)
+    //   .join("");
+
+    // const secondValue = splitsBeforeManip
+    //   .slice(splitsSearchIndexBeforeManip + 2, splitsBeforeManip.length)
+    //   .join("");
 
     switch (buttonType) {
       case "plus":
         if (lastValueIsNumber) {
           if (!!secondNumber) {
-            calcInp.value = (10 * firstNumber + 10 * secondNumber) / 10;
+            calcInp.value = operations[manip](
+              firstNumber,
+              secondNumber,
+              degree
+            );
             insert(`+`);
           } else {
             insert(`+`);
@@ -61,15 +83,33 @@ calcParam.addEventListener("click", (e) => {
         break;
       case "minus":
         if (lastValueIsNumber) {
-          result();
-          insert(`-`);
+          if (!!secondNumber) {
+            calcInp.value = operations[manip](
+              firstNumber,
+              secondNumber,
+              degree
+            );
+            insert(`-`);
+          } else {
+            insert(`-`);
+          }
         } else {
           calcInp.value = `${firstNumber}-`;
         }
         break;
       case "virgule":
+        console.log(lastValueIsNumber);
+        console.log(firstNumber);
+        console.log(manip);
+
         if (lastValueIsNumber) {
-          insert(`.`);
+          if (!searchPointInfirstNumber && secondNumber === 0) {
+            insert(`.`);
+          }
+          // lastValueIsNumber = Number.isInteger(+calcInp.value.slice(-1));
+          if (!searchPointInSecondNumber && firstNumber === 0) {
+            insert(`.`);
+          }
         } else {
           if (!splitsSearchPoint) {
             insert(`0.`);
@@ -78,7 +118,7 @@ calcParam.addEventListener("click", (e) => {
         break;
       case "plusMinus":
         if (lastValueIsNumber || lastValue === ".") {
-          if (splitsSearchIndexManip >= 0) {
+          if (splitsSearchIndexBeforeManip >= 0) {
             calcInp.value = `${firstValueAndManip} ` + eval(secondValue * -1);
           } else {
             calcInp.value = eval(calcInp.value * -1);
@@ -107,7 +147,7 @@ calcParam.addEventListener("click", (e) => {
         break;
       case "radical":
         if (lastValueIsNumber || lastValue === ".") {
-          if (splitsSearchIndexManip >= 0) {
+          if (splitsSearchIndexBeforeManip >= 0) {
             calcInp.value =
               `${firstValueAndManip}` + Math.sqrt(eval(secondValue));
           } else {
@@ -183,9 +223,9 @@ calcParam.addEventListener("click", (e) => {
       calcInp.value = 0;
     }
 
-    // const lastValue = calcInp.value.slice(-1);
-
     const splitsAfterManip = calcInp.value.split("");
+    const manipulation = (elem) =>
+      elem === "+" || elem === "-" || elem === "*" || elem === "/";
     const splitsSearchManip = splitsAfterManip.some(manipulation);
     const splitsSearchIndexManipAfter =
       splitsAfterManip.slice(1).findIndex(manipulation) + 1;
@@ -195,11 +235,17 @@ calcParam.addEventListener("click", (e) => {
         .slice(0, splitsSearchIndexManipAfter)
         .join("");
 
-      const manip = splitsAfterManip.find(manipulation);
+      // const searchPointInFirstNumber = firstNumber.some((elem) => elem === ".");
+
+      manip = splitsAfterManip.find(manipulation);
 
       secondNumber = +splitsAfterManip
         .slice(splitsSearchIndexManipAfter + 1, splitsAfterManip.length)
         .join("");
+
+      searchPointInSecondNumber = +Array.from(`${secondNumber}`).some(
+        (elem) => elem === "."
+      );
 
       //Приведене десятичных чисел до целого
       const indexPointInFirstNumber = +Array.from(`${firstNumber}`).findIndex(
@@ -216,14 +262,17 @@ calcParam.addEventListener("click", (e) => {
         lengthFirstNumber - indexPointInFirstNumber - 1;
       const reductionToWholeSecondNumber =
         lengthSecondNumber - indexPointInSecondNumber - 1;
+      degree = Math.max(
+        reductionToWholeFirstNumber,
+        reductionToWholeSecondNumber
+      );
+      // console.log("первое числе " + firstNumber);
+      // console.log("второе число " + secondNumber);
+      // console.log("Вычисление " + manip);
 
-      console.log("Индекс точки в первом числе " + indexPointInFirstNumber);
-      console.log("Длина первого числа " + lengthFirstNumber);
-      console.log("Индекс точки во втором числе " + indexPointInSecondNumber);
-      console.log("Длина второго числа " + lengthSecondNumber);
-
-      console.log(reductionToWholeFirstNumber);
-      console.log(reductionToWholeSecondNumber);
+      // console.log(
+      //   "Вычсление " + operations[manip](firstNumber, secondNumber, degree)
+      // );
     } else {
       firstNumber = +calcInp.value;
     }
