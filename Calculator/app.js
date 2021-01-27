@@ -1,5 +1,5 @@
 // ПРИ ВВЕДЕНИЕ НЕСКОЛЬКИХ ОПЕРАЦИЙ, НЕ ОТРАБАТЫВАЕТ СЛОЖНЫЕ ВЫЧИЛСЕНИЯ
-//Сделать одинаковы отступы между 20--20
+//2 + 0.
 
 // const calc = document.querySelector(".calc");
 const calcParam = document.querySelector(".calc-param");
@@ -7,11 +7,10 @@ let calcInp = document.getElementById("calc-inp");
 
 let firstNumber = 0;
 let firstNumberSlice = [];
-// let firstValueAndManip;
 calcInp.value = firstNumber;
 let secondNumber = 0;
 let secondNumberSlice = [];
-let degree;
+let degree = 0;
 let manip;
 
 let searchPointInfirstNumber = firstNumberSlice.some((elem) => elem === ".");
@@ -57,24 +56,18 @@ calcParam.addEventListener("click", (e) => {
 
   if (buttonType) {
     const splitsBeforeManip = calcInp.value.split("");
-    const splitsSearchPoint = splitsBeforeManip.some((elem) => elem === ".");
     const splitsSearchIndexBeforeManip = splitsBeforeManip
       .slice(1)
       .findIndex(manipulation);
 
     let lastValueIsNumber = Number.isInteger(+calcInp.value.slice(-1));
+
     let lastValueIsPoint = Boolean(calcInp.value.slice(-1) === ".");
-    const firstNumberWithoutPoint = calcInp.value.slice(0, -1);
     searchPointInSecondNumber = secondNumberSlice.some((elem) => elem === ".");
-    // const symbol = calcInp.value.slice(-1);
 
     const firstValueAndManip = splitsBeforeManip
       .slice(0, splitsSearchIndexBeforeManip + 2)
       .join("");
-
-    // const secondValue = splitsBeforeManip
-    //   .slice(splitsSearchIndexBeforeManip + 2, splitsBeforeManip.length)
-    //   .join("");
 
     switch (buttonType) {
       case "plus":
@@ -88,7 +81,7 @@ calcParam.addEventListener("click", (e) => {
           }
           insert(`+`);
         } else {
-          calcInp.value = `${firstNumber}+`;
+          calcInp.value = `${+firstNumber}+`;
         }
         break;
       case "minus":
@@ -102,11 +95,7 @@ calcParam.addEventListener("click", (e) => {
           }
           insert(`-`);
         } else {
-          if (lastValueIsPoint) {
-            calcInp.value = `${firstNumberWithoutPoint}-`;
-          } else {
-            calcInp.value = `${firstNumber}-`;
-          }
+          calcInp.value = `${+firstNumber}-`;
         }
         break;
       case "virgule":
@@ -148,11 +137,7 @@ calcParam.addEventListener("click", (e) => {
           }
           insert(`*`);
         } else {
-          if (lastValueIsPoint) {
-            calcInp.value = `${firstNumberWithoutPoint}*`;
-          } else {
-            calcInp.value = `${firstNumber}*`;
-          }
+          calcInp.value = `${+firstNumber}*`;
         }
         break;
       case "divide":
@@ -166,27 +151,22 @@ calcParam.addEventListener("click", (e) => {
           }
           insert(`/`);
         } else {
-          if (lastValueIsPoint) {
-            calcInp.value = `${firstNumberWithoutPoint}/`;
-          } else {
-            calcInp.value = `${firstNumber}/`;
-          }
+          calcInp.value = `${+firstNumber}-`;
         }
         break;
       case "radical":
-        if (lastValueIsNumber || lastValue === ".") {
+        if (lastValueIsNumber || lastValueIsPoint) {
           if (splitsSearchIndexBeforeManip >= 0) {
-            calcInp.value =
-              `${firstValueAndManip}` + Math.sqrt(eval(secondValue));
+            calcInp.value = `${firstValueAndManip}` + Math.sqrt(secondNumber);
           } else {
             if (calcInp.value < 0) {
               alert("Введены неверные данные");
             } else {
-              calcInp.value = Math.sqrt(eval(calcInp.value));
+              calcInp.value = Math.sqrt(calcInp.value);
             }
           }
         } else {
-          if (Math.sqrt(firstNumber) >= 0) {
+          if (firstNumber >= 0) {
             calcInp.value = `${firstValueAndManip}` + Math.sqrt(firstNumber);
           } else {
             alert("Введены неверные данные");
@@ -194,27 +174,46 @@ calcParam.addEventListener("click", (e) => {
         }
         break;
       case "power":
-        if (lastValueIsNumber) {
-          calcInp.value = Math.pow(calcInp.value, 2);
+        if (lastValueIsNumber || lastValueIsPoint) {
+          if (splitsSearchIndexBeforeManip >= 0) {
+            calcInp.value = `${firstValueAndManip}` + Math.pow(secondNumber, 2);
+          } else {
+            calcInp.value = Math.pow(calcInp.value, 2);
+          }
         } else {
           valuePower = Math.pow(firstNumber, 2);
-
-          calcInp.value = `${firstNumber} ${symbol} ${valuePower}`;
+          calcInp.value = `${firstValueAndManip}${valuePower}`;
         }
         break;
       case "fraction":
         if (+calcInp.value !== 0) {
-          if (lastValueIsNumber) {
-            calcInp.value = 1 / calcInp.value;
+          if (lastValueIsNumber || lastValueIsPoint) {
+            if (splitsSearchIndexBeforeManip >= 0) {
+              calcInp.value = `${firstValueAndManip}` + 1 / secondNumber;
+            } else {
+              calcInp.value = 1 / calcInp.value;
+            }
           } else {
             valueFraction = 1 / firstNumber;
-            calcInp.value = `${firstNumber} ${symbol} ${valueFraction}`;
+            calcInp.value = `${firstValueAndManip}${valueFraction}`;
           }
         } else {
           alert("Деление на ноль невозможно");
         }
         break;
       case "percent":
+        if (lastValueIsNumber || lastValueIsPoint) {
+          if (splitsSearchIndexBeforeManip >= 0) {
+            calcInp.value =
+              `${firstValueAndManip}` + (firstNumber * secondNumber) / 100;
+            replaceMinusMinusWithPlus();
+          } else {
+            calcInp.value = 0;
+          }
+        } else {
+          calcInp.value =
+            `${firstValueAndManip}` + (firstNumber * firstNumber) / 100;
+        }
         break;
 
       case "Del":
@@ -241,10 +240,15 @@ calcParam.addEventListener("click", (e) => {
 
       case "equalle":
         if (lastValueIsNumber) {
-          result();
+          if (manip) {
+            calcInp.value = operations[manip](
+              firstNumber,
+              secondNumber,
+              degree
+            );
+          }
         } else {
-          calcInp.value = `${firstNumber} ${symbol} ${firstNumber}`;
-          result();
+          calcInp.value = operations[manip](firstNumber, firstNumber, degree);
         }
         break;
     }
@@ -255,8 +259,7 @@ calcParam.addEventListener("click", (e) => {
   }
 
   const splitsAfterManip = calcInp.value.split("");
-
-  const splitsSearchManip = splitsAfterManip.some(manipulation);
+  const splitsSearchManip = splitsAfterManip.slice(1).some(manipulation);
   const splitsSearchIndexManipAfter =
     splitsAfterManip.slice(1).findIndex(manipulation) + 1;
 
@@ -267,7 +270,7 @@ calcParam.addEventListener("click", (e) => {
 
     searchPointInfirstNumber = firstNumberSlice.some((elem) => elem === ".");
 
-    manip = splitsAfterManip.find(manipulation);
+    manip = splitsAfterManip.slice(1).find(manipulation);
 
     secondNumberSlice = splitsAfterManip.slice(
       splitsSearchIndexManipAfter + 1,
@@ -297,21 +300,9 @@ calcParam.addEventListener("click", (e) => {
       reductionToWholeFirstNumber,
       reductionToWholeSecondNumber
     );
-    // console.log("первое числе " + firstNumber);
-    // console.log("второе число " + secondNumber);
-    // console.log("Вычисление " + manip);
-
-    // console.log(
-    //   "Вычсление " + operations[manip](firstNumber, secondNumber, degree)
-    // );
   } else {
     firstNumber = calcInp.value;
     firstNumberSlice = splitsAfterManip.slice(0, calcInp.value.length);
     searchPointInfirstNumber = firstNumberSlice.some((elem) => elem === ".");
-
-    console.log(firstNumber);
-    // console.log(firstNumberSlice);
-    // console.log(firstNumber);
-    // console.log(searchPointInfirstNumber);
   }
 });
