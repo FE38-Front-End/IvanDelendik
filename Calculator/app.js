@@ -1,5 +1,5 @@
 // ПРИ ВВЕДЕНИЕ НЕСКОЛЬКИХ ОПЕРАЦИЙ, НЕ ОТРАБАТЫВАЕТ СЛОЖНЫЕ ВЫЧИЛСЕНИЯ
-//2 + 0.
+//2 + 0. +/-
 
 // const calc = document.querySelector(".calc");
 const calcParam = document.querySelector(".calc-param");
@@ -281,7 +281,7 @@ calcParam.addEventListener("click", (e) => {
 
     searchPointInSecondNumber = secondNumberSlice.some((elem) => elem === ".");
 
-    //Приведене десятичных чисел до целого
+    //Приведение десятичных чисел до целого
     const indexPointInFirstNumber = +firstNumberSlice.findIndex(
       (elem) => elem === "."
     );
