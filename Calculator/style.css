@@ -1,0 +1,98 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-size: 20px;
+    border: none;
+    outline:none
+
+}
+
+body {
+    background-image: url(../Calculator/windows-10.jpg);
+    background-size: 100vw 100vh;
+}
+
+.calculator {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: .9;
+}
+
+.calc-input {
+    width: 320px;
+    padding: 15px;
+    background-color:#D8D8D8;
+    text-align: right;
+}
+
+#calc-inp {
+    font-size: 40px;
+}
+
+.calc {
+    width: 320px;
+    background: #D8D8D8;
+}
+
+.calc-save {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+button[data-type='MC'],
+button[data-type='MR'], 
+button[data-type='MPlus'], 
+button[data-type='MMinus'],
+button[data-type='MS']
+ {
+    background: #D8D8D8;
+    font-size: 14px;
+    padding: 5px;
+}
+
+button[data-type='MC']:hover,
+button[data-type='MR']:hover, 
+button[data-type='MPlus']:hover,
+button[data-type="MS"]:hover,
+button[data-type='MMinus']:hover
+ {
+    background: rgb(239, 239, 239);
+}
+
+.calc-param {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 3px;
+    padding: 3px;
+}
+
+.calc-number {
+    background: white;
+    font-weight: bold;
+}
+
+button[data-type="equalle"] {
+    background: rgba(67, 152, 207, 0.7);
+ }
+
+ button[data-type="equalle"]:hover {
+    background: rgb(67, 152, 207);
+ }
+
+button {
+    padding: 13px;
+}
+
+button:hover {
+    background: #D8D8D8;
+    cursor: pointer;
+}
+
+button[data-type="fraction"],
+button[data-type="power"],
+button[data-type="radical"] {
+    font-style:italic
+}
