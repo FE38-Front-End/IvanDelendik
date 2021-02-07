@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div class="calculator">
+      <input
+        type="text"
+        name=""
+        id="calc-memory"
+        class="calc-input"
+        value="В памяти ничего не сохранено" readonly
+      />
+      <input type="text" name="" id="calc-inp" class="calc-input" readonly />
+      <div class="calc" data-type="calc">
+        <div class="calc-save">
+          <button disabled data-type="MC">MC</button>
+          <button disabled data-type="MR">MR</button>
+          <button data-type="MPlus">M+</button>
+          <button data-type="MMinus">M-</button>
+          <button data-type="MS">MS</button>
+        </div>
+        <div class="calc-param">
+          <button data-type="percent">%</button>
+          <button data-type="CE">CE</button>
+          <button data-type="C">C</button>
+          <button data-type="Del">&#8678</button>
+
+          <button data-type="fraction">1/x</button>
+          <button data-type="power">x&sup2;</button>
+          <button data-type="radical">&#8730;x</button>
+          <button data-type="divide">&divide</button>
+
+          <button class="calc-number" data-type="seven">7</button>
+          <button class="calc-number" data-type="eight">8</button>
+          <button class="calc-number" data-type="nine">9</button>
+          <button data-type="multiply">&times</button>
+
+          <button class="calc-number" data-type="four">4</button>
+          <button class="calc-number" data-type="five">5</button>
+          <button class="calc-number" data-type="six">6</button>
+          <button data-type="minus">-</button>
+
+          <button class="calc-number" data-type="one">1</button>
+          <button class="calc-number" data-type="two">2</button>
+          <button class="calc-number" data-type="three">3</button>
+          <button data-type="plus">+</button>
+
+          <button class="calc-number" data-type="plusMinus">+/-</button>
+          <button class="calc-number" data-type="zero">0</button>
+          <button class="calc-number" data-type="virgule">,</button>
+          <button data-type="equalle">=</button>
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
