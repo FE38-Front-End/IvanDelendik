@@ -46,7 +46,20 @@ Car.prototype.calculateWay = function (kilometers, fuel) {
   console.log(`${numberOil} дозаправки(вок) необходимо`);
 };
 
-const bmw = new Car({
+function extend(Child, Parent) {
+  Child.prototype = Object.create(Parent.prototype);
+  Child.prototype.constructor = Child;
+  Child.superclass = Parent.prototype;
+}
+
+function Bmw(Luke) {
+  Bmw.superclass.constructor.call(this, Luke);
+  this.Luke = true;
+}
+
+extend(Bmw, Car);
+
+const bmw = new Bmw({
   name: "BMW",
   model: "i8",
   year: "2015",
@@ -56,12 +69,14 @@ const bmw = new Car({
   fuelConsumption: "20",
 });
 
-bmw.getFullName();
-bmw.getAge();
-bmw.changeColor("green");
-bmw.calculateWay("1000", "10");
+function Toyota(climateСontrol) {
+  Toyota.superclass.constructor.call(this, climateСontrol);
+  this.climateСontrol = true;
+}
 
-const toyota = new Car({
+extend(Toyota, Car);
+
+const toyota = new Toyota({
   name: "Toyota",
   model: "RAV4",
   year: "2017",
@@ -71,7 +86,14 @@ const toyota = new Car({
   fuelConsumption: "15",
 });
 
-const mazda = new Car({
+function Mazda(ledLamp) {
+  Mazda.superclass.constructor.call(this, ledLamp);
+  this.ledLamp = true;
+}
+
+extend(Mazda, Car);
+
+const mazda = new Mazda({
   name: "Mazda",
   model: "CX-5",
   year: "2014",
@@ -81,8 +103,20 @@ const mazda = new Car({
   fuelConsumption: "8",
 });
 
-function extend(Child, Parent) {
-  Child.prototype = Object.create(Parent.prototype);
-  Child.prototype.constructor = Child;
-  Child.superclass = Parent.prototype;
-}
+console.log(bmw);
+bmw.getFullName();
+bmw.getAge();
+bmw.changeColor("green");
+bmw.calculateWay("1000", "10");
+
+console.log(toyota);
+toyota.getFullName();
+toyota.getAge();
+toyota.changeColor("red");
+toyota.calculateWay("300", "50");
+
+console.log(mazda);
+mazda.getFullName();
+mazda.getAge();
+mazda.changeColor("blue");
+mazda.calculateWay("500", "30");
