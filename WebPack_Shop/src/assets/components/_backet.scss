@@ -1,0 +1,14 @@
+.backet {
+
+    &__item{
+    position: absolute;
+    top: -2px;
+    right: -4px;
+    background: #2091F9;
+    border-radius: 42px;
+    @include font-montserrat-semibold;
+    font-size: 10px;
+    line-height: normal;
+    padding: 4px 7px;
+    }   
+}

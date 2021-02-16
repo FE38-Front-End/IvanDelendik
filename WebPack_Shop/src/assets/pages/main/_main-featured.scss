@@ -1,0 +1,40 @@
+.main {
+
+    &-featured {
+
+        &-wrapper {
+            padding-top: 40px;
+            padding-bottom: 30px;
+        }
+
+        &-menu {
+            @include font-montserrat-semibold;
+            text-align: center;
+            margin-top: 25px;
+            margin-bottom: 60px;
+
+
+
+            &__item {
+                position: relative;
+                color: #737373;
+
+                &:not(:last-child) {
+                    margin-right: 37.25px;
+                }
+
+                &::after {
+                    position: absolute;
+                    content: "";
+                    width: 39px;
+                    height: 2px;
+                    background: #2091F9;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    bottom: -8px;
+                    opacity: 0px;
+                }
+            }
+        }
+    }
+}

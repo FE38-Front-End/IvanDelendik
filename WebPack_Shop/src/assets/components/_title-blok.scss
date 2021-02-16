@@ -1,0 +1,52 @@
+.title-section {
+    text-align: center;
+
+    &__home {
+        padding-top: 134px;
+        padding-bottom: 134px;
+
+        @include screen-max($md) {
+            padding-top: 180px;
+            padding-bottom: 180px;
+        }
+    }
+
+    &__product {
+        background-image: url(../images/product-image-bg.jpg);
+        background-size: cover;
+        background-position: center;
+        padding-top: 75px;
+        padding-bottom: 75px;
+    }
+
+    &__name {
+        @include font-montserrat-bold;
+
+        @include screen-max($md) {
+            font-size: 16px;
+            line-height: 24px;
+        }
+    }
+
+    &__subtitle {
+        @include font-montserrat-extrabold;
+        margin: 8px 0px;
+        
+        @include screen-max($md) {
+            font-size: 38px;
+            line-height: 47px;
+            margin: 6px 0px;
+
+        }
+    }
+
+    &__slogan {
+        @include font-montserrat-medium;
+    }
+}
+
+.title {
+    @include font-montserrat-bold;
+    color: #252B42;
+    text-align: center;
+}

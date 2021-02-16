@@ -1,0 +1,11 @@
+.button {
+    &-title {
+        @include font-montserrat-button ();
+        color: #2091F9;
+        padding: 16px 46px;
+        border: none;
+        margin-top: 31px;
+        background-color: #FFFFFF;
+        
+    }
+}

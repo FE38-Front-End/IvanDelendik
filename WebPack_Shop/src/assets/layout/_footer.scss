@@ -1,0 +1,38 @@
+.footer {
+    background: #252B42;
+    padding: 35px 58px 47px 110px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+    @include screen-max($hd) {
+        flex-direction: column;
+        justify-content: center;
+        padding: 46px 0px 68px;
+    }
+
+    &__logo {
+        margin-right: 55px;
+        transform: translateY(-8px);
+
+        @include screen-max($hd) {
+            margin: 0px auto;
+            margin-bottom: 60px;
+        }
+
+    }
+
+    &-container {
+        margin-left: auto;
+        font-size: 0px;
+
+        @include screen-max($hd) {
+            margin: 0px auto;
+            margin-top: 62px;
+        }
+
+        &__img:not(:last-child) {
+            margin-right: 32px;
+        }
+    }
+}

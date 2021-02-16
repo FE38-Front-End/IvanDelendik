@@ -1,0 +1,34 @@
+.navigation {
+
+    &__item {
+        @include font-montserrat-semibold ();
+
+        &:not(:last-child) {
+            margin-right: 41px;
+        }
+        
+        &-product {
+            color: #737373;
+        }
+
+        &--none {
+            @include screen-max($xl) {
+                display: none;
+            }
+        }
+    }
+
+
+    &-footer--adaptive {
+        @include screen-max($hd) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            &:not(:last-child) {
+                margin-bottom: 16px;
+                margin-right: 0px;
+            }
+        }
+    }
+}
