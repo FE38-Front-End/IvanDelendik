@@ -1,18 +1,25 @@
 const path = require("path");
 
+const pages = ["index", "product", "product_roster", "product_small"];
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const getHtmlPlugins = (pages) => {
+  return pages.map(
+    (page) =>
+      new HtmlWebpackPlugin({
+        filename: `${page}.html`,
+        template: `./${page}.html`,
+      })
+  );
+};
 
 module.exports = {
   entry: "./src/index.js",
   output: {
-    filename: "main.js",
+    filename: "./[name].bundle.[hash].js",
     path: path.resolve(__dirname, "dist"),
+    clean: true,
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./index.html",
-    }),
-  ],
+  plugins: getHtmlPlugins(pages),
   module: {
     rules: [
       {
