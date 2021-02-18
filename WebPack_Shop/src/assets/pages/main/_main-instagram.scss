@@ -1,0 +1,127 @@
+.main {
+
+    &-instagram {
+        background: #313958;
+        padding-top: 56px;
+        padding-bottom: 49px;
+
+
+        &-title {
+            @include font-montserrat-bold;
+            font-size: 40px;
+            line-height: 57px;
+            text-align: center;
+            letter-spacing: 0.2px;
+            margin-bottom: 69px;
+        }
+
+        &-menu {
+            display: grid;
+            grid-template-columns: repeat(4, 349px);
+            grid-column-gap: 25px;
+            overflow: hidden;
+            justify-content: center;
+
+            @include screen-max($md) {
+                grid-template-columns: 1fr;
+            }
+
+            &__elem {
+                position: relative;
+
+                @include screen-max($md) {
+                    display: none;
+                }
+
+                &--adaptive {
+                    display: none;
+
+                    @include screen-max($md) {
+                        display: flex;
+                        max-width: 744px;
+                        margin-left: 12px;
+                        margin-right: 12px;
+                    }
+                }
+            }
+
+            &__img {
+                width: 100%;
+                height: 249px;
+                border-radius: 16px;
+                object-fit: cover;
+            }
+
+            &__button {
+                position: absolute;
+                top: 14px;
+                left: 17px;
+                background: rgba(0, 0, 0, 0.2);
+                border: 2px solid #FFFFFF;
+                box-sizing: border-box;
+                border-radius: 10px;
+                padding: 18px 38px;
+                @include font-montserrat-bold;
+                font-size: 16px;
+                line-height: 28px;
+            }
+        }
+
+        &-skrol {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 45px;
+
+            &__arrow {
+                width: 41px;
+                height: 41px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba(222, 222, 222, 0.2);
+                border: 0.695207px solid rgba(255, 255, 255, 0.4);
+                box-sizing: border-box;
+                box-shadow: 0px 13px 19px rgba(0, 0, 0, 0.07);
+                border-radius: 34.7604px;
+                margin-right: 30px;
+                margin-left: 30px;
+
+                @include screen-max($md) {
+                    display: none;
+                }
+
+                &--revers {
+                    transform: rotate(180deg);
+                }
+            }
+
+            &-point {
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &__elem {
+                width: 15px;
+                height: 15px;
+                border-radius: 35px;
+                background: rgba(255, 255, 255, 0.1);
+                border: none;
+
+                &--adaptive {
+                    display: none;
+                    
+                    @include screen-max($md) {
+                        display: flex;
+                    }
+                }
+
+                    &:not(:last-child) {
+                    margin-right: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

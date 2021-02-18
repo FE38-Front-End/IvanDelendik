@@ -1,0 +1,57 @@
+.product {
+
+    &-list {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+
+        &-text {
+            @include font-montserrat-medium;
+            font-size: 15px;
+            line-height: 16px;
+            letter-spacing: 0.1px;
+            color: #737373;
+            margin-right: 17px;
+        }
+
+        &-select {
+            width: 162px;
+            padding: 17px 20px;
+            border: 1px solid #DCDCDC;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            @include font-montserrat-medium;
+            font-size: 15px;
+            line-height: 16px;
+            letter-spacing: 0.1px;
+            color: #252B42;
+            appearance: none;
+            background: url('/src/images/dropdown_line.svg') #FFFFFF no-repeat right 20px center;
+        }
+
+        &-display {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+
+            &__elem {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 53px;
+                height: 51px;
+                background: #E9E9E9;
+                border-radius: 5px;
+                border: 0px;
+
+                &--active {
+                    background: #FFFFFF;
+                }
+
+                &:not(:last-child) {
+                    margin-right: 7px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+.main {
+
+    &-latest {
+
+        &-wrapper {
+            padding-top: 90px;
+            padding-bottom: 81px;
+
+            @include screen-max($hd) {
+                padding-top: 43px;
+                padding-bottom: 33px;
+            }
+        }
+
+        &-title {
+            margin-bottom: 60px;
+
+            @include screen-max($hd) {
+                margin-bottom: 32px;
+
+            }
+        }
+    }
+}

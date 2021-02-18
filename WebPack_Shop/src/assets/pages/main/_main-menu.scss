@@ -1,0 +1,85 @@
+.main {
+
+    &-menu {   
+        display: grid;
+        grid-template-columns: 370px 310px 370px;
+        grid-gap: 29px 40px;
+
+        @include screen-max($hd) {
+            grid-template-columns: 370px 370px;
+        }
+
+        @include screen-max($lg) {
+            grid-template-columns: 370px;
+            grid-gap: 29px 40px;
+
+        }
+
+        &-wrapper {
+            max-width: 1130px;
+            margin: 0px auto;
+            padding-top: 50px;
+            padding-bottom: 50px;
+
+            @include screen-max($hd) {
+                max-width: 740px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            @include screen-max($lmg) {
+                max-width: 370px;
+            }
+
+        }
+        
+        &-container {
+            font-size: 0px;
+            position: relative;
+
+            &:nth-child(4) {
+
+
+                @include screen-max($hd) {
+                    grid-column: 1;
+                    grid-row: 2;
+                }
+            }
+
+            &:nth-child(3) {
+                grid-column: 2;
+                grid-row: 1 / 3;
+                font-size: 0px;
+
+                @include screen-max($hd) {
+                    width: 370px;
+                }
+
+                @include screen-max($lmg) {
+                    grid-column: 1;
+                    grid-row: 3;
+                }
+            }
+
+            &__img {
+                font-size: 0px;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            &__button {
+                position: absolute;
+                top:50%;
+                left:50%;
+                transform:translate(-50%, -50%);
+                @include font-montserrat-button;
+                color: #FFFFFF;
+                align-self: center;
+                padding: 15px 30px;
+                background: rgba(0, 0, 0, 0.1);
+                border: 1px solid #FFFFFF;
+            }
+        }
+    }
+}

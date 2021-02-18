@@ -1,0 +1,89 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 32px 60.5px 36px 67.5px;
+
+    @include screen-max($md) {
+        padding: 18px 0px 27px 25px;
+    }
+
+    &-product {
+        padding: 22px 44px 27px 46px;
+
+    }
+
+    &__logo {
+        margin-right: 43px;
+        transform: translateY(-4px);
+    }
+
+    &__container {
+        display: flex;
+        margin-left: auto;
+        align-items: center;
+    }
+
+    &__account {
+        display: flex;
+        align-items: center;
+    }
+
+    &__avatar {       
+        width: 56px;
+        height: 56px;
+
+        @include screen-max ($md) {
+            display: none;
+        }
+    }
+
+    &__login {
+        @include font-montserrat-semibold ();
+        margin-left: 12px;
+
+        &-product {
+            color: #252B42;
+        }
+
+        @include screen-max ($md) {
+            display: none;
+        }
+        
+    }
+
+    &-favorites {
+        @include screen-max ($sm) {
+            display: none;
+            
+        }
+    }
+
+    &__backet {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 56px;
+        height: 56px;   
+        background: rgba(232, 232, 232, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 66px;
+        position: relative;
+    }
+
+    &-menu {
+        display: none;
+        background-color: transparent;
+        border: none;
+
+
+        @include screen-max($xl) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 22px;
+            margin-left: 26px;
+        }   
+    }
+}
